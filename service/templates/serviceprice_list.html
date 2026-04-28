@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Service Prices</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Service Prices</h3>
+        <a href="{% url 'service:add_serviceprice' %}" class="btn btn-success">+ Add Price</a>
+        
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Service</th>
+                        <th>Vehicle Size</th>
+                        <th>Model</th>
+                        <th>Price (UGX)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for price in prices %}
+                    <tr>
+                        <td>{{ price.name }}</td>
+                        <td>{{ price.vehicle_size }}</td>
+                        <td>{{ price.model }}</td>
+                        <td>{{ price.price }}</td>
+
+                        <td>
+                            <a href="{% url 'update_serviceprice' price.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'delete_serviceprice' price.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No service prices found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

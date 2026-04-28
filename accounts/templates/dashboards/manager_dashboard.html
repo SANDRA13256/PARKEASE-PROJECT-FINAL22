@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Manager Dashboard</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+        <div class="card shadow border-primary">
+            <div class="card-body text-center">
+                <h5>Categories</h5>
+                <a href="{% url 'parking:category_list' %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow border-success">
+            <div class="card-body text-center">
+                <h5>Service Prices</h5>
+                <a href="{% url 'service:serviceprice_list' %}" class="btn btn-success">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow border-warning">
+            <div class="card-body text-center">
+                <h5>Tyre Services</h5>
+                <a href="{% url 'service:tyre_list' %}" class="btn btn-warning">View</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

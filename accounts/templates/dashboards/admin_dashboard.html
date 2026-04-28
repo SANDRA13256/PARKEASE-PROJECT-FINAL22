@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <h5>Admin Panel</h5>
+                <a href="/admin/" class="btn btn-dark">Open</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <h5>Manage Categories</h5>
+                <a href="{% url 'parking:category_list' %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <h5>Service Prices</h5>
+                {% url 'parking:serviceprice_list' %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
