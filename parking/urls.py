@@ -13,5 +13,6 @@ urlpatterns = [
     path('register/', views.register_vehicle, name='register_vehicle'),
     path('update/<int:pk>/', views.update_vehicle, name='update_vehicle'),
     path('delete/<int:pk>/', views.delete_vehicle, name='delete_vehicle'),
+    path('signout/<int:pk>/', views.signout_vehicle, name='signout_vehicle'),
     
 ]

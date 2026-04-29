@@ -5,9 +5,9 @@ from .forms import StaffForm, StaffLoginForm
 from django.contrib.auth.decorators import login_required
 
 
-# ---------------------------
+
 # REGISTER STAFF
-# ---------------------------
+
 def register_staff(request):
     form = StaffForm(request.POST or None)
 
@@ -20,9 +20,9 @@ def register_staff(request):
     return render(request, 'register.html', {'form': form})
 
 
-# ---------------------------
+
 # LOGIN STAFF
-# ---------------------------
+
 def login_staff(request):
     form = StaffLoginForm(request, data=request.POST or None)
 
@@ -32,13 +32,12 @@ def login_staff(request):
             login(request, user)
             return redirect('accounts:dashboard')
         else:
-            print(form.errors)  # 👈 DEBUG
+            print(form.errors)  
 
     return render(request, 'login.html', {'form': form})
 
-# ---------------------------
+
 # DASHBOARD
-# ---------------------------
 
 def dashboard(request):
     if not request.user.is_authenticated:
@@ -57,9 +56,9 @@ def dashboard(request):
 
     return redirect('accounts:login')
 
-# ---------------------------
+
 # LOGOUT
-# ---------------------------
+
 def logout_staff(request):
     logout(request)
     return redirect('accounts:login')
@@ -101,4 +100,10 @@ def attendant_dashboard(request):
     if request.user.role != 'ATTENDANT':
         return redirect('accounts:login')
     return render(request, 'dashboards/attendant_dashboard.html')
+
+
+
+
+
+    
     

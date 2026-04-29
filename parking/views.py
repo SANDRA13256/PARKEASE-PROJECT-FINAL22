@@ -4,9 +4,18 @@ from .models import VehicleCategory, VehicleRegistration
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
-# ---------------------------
+
 # Vehicle Category Views
-# ---------------------------
+
+def signout_vehicle(request, pk):
+    vehicle = get_object_or_404(VehicleRegistration, pk=pk)
+
+    vehicle.status = 'signed_out'
+    vehicle.departure_time = timezone.now()
+    vehicle.save()
+
+    return redirect('parking:vehicle_list')
+
 
 def category_list(request):
     categories = VehicleCategory.objects.all()
@@ -59,7 +68,16 @@ def delete_vehicle(request, pk):
         return redirect('parking:vehicle_list')
 
     return render(request, 'confirm_delete.html', {'vehicle': vehicle})
-from django.shortcuts import render
+
 
 def serviceprice_list(request):
     return render(request, 'parking/serviceprice_list.html')
+
+    if form.is_valid():
+
+     vehicle = form.save(commit=False)
+
+     vehicle.status = 'parked'
+
+     vehicle.save()
+    return redirect('parking:vehicle_list')

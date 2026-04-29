@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Service Prices</title>
 
-    <!-- Bootstrap -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -12,7 +12,6 @@
 
 <div class="container mt-5">
 
-    <!-- Header -->
     <div class="d-flex justify-content-between mb-3">
         <h3>Service Prices</h3>
         <a href="{% url 'service:add_serviceprice' %}" class="btn btn-success">
@@ -20,7 +19,7 @@
         </a>
     </div>
 
-    <!-- Table -->
+    
     <div class="card shadow">
         <div class="card-body">
 
@@ -44,13 +43,13 @@
                         <td>{{ price.price }}</td>
 
                         <td>
-                            <!-- Edit -->
+                            
                             <a href="{% url 'service:update_serviceprice' price.id %}" 
                                class="btn btn-sm btn-warning">
                                 Edit
                             </a>
 
-                            <!-- Delete -->
+                            
                             <a href="{% url 'service:delete_serviceprice' price.id %}" 
                                class="btn btn-sm btn-danger">
                                 Delete

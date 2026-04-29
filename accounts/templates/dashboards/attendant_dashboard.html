@@ -4,26 +4,43 @@
 <h2 class="mb-4">Attendant Dashboard</h2>
 
 <div class="row g-4">
-    
 
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="card shadow border-info">
             <div class="card-body text-center">
-                <h5>Register Vehicle</h5>
+                <h6>Register Vehicle</h6>
                 <a href="{% url 'parking:register_vehicle' %}" class="btn btn-info">Add</a>
             </div>
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="card shadow border-secondary">
             <div class="card-body text-center">
-                <h5>View Vehicles</h5>
+                <h6>View Vehicles</h6>
                 <a href="{% url 'parking:vehicle_list' %}" class="btn btn-secondary">View</a>
             </div>
         </div>
     </div>
-    
+
+    <div class="col-md-3">
+        <div class="card shadow border-success">
+            <div class="card-body text-center">
+                <h6>Sign Out Vehicle</h6>
+                <a href="{% url 'parking:vehicle_list' %}" class="btn btn-success">Go</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow border-danger">
+            <div class="card-body text-center">
+                <h6>Delete Vehicle</h6>
+                <a href="{% url 'parking:vehicle_list' %}" class="btn btn-danger">Manage</a>
+            </div>
+        </div>
+    </div>
 
 </div>
+
 {% endblock %}

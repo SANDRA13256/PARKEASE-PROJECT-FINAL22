@@ -34,7 +34,7 @@ class VehicleRegistration(models.Model):
     def save(self, *args, **kwargs):
      if not self.receipt_number:
         self.receipt_number = f'RPE-{uuid.uuid4().hex[:6].upper()}'
-     super().save(*args, **kwargs)   # ✅ REQUIRED
+     super().save(*args, **kwargs)   
 
     def __str__(self):
      return f'{self.number_plate} ({self.receipt_number})'

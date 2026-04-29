@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4 text-center">
+
+    <h3>Tyre Service Receipt</h3>
+    <hr>
+
+    <p><strong>Plate:</strong> {{ tyre.vehicle_plate }}</p>
+    <p><strong>Service:</strong> {{ tyre.service.name }}</p>
+    <p><strong>Amount:</strong> UGX {{ tyre.price }}</p>
+    <p><strong>Receipt No:</strong> {{ tyre.receipt_number }}</p>
+    <p><strong>Date:</strong> {{ tyre.date }}</p>
+
+    <button onclick="window.print()" class="btn btn-success mt-3">
+        Print Receipt
+    </button>
+
+    <a href="{% url 'service:tyre_list' %}" class="btn btn-secondary mt-3">
+        Back
+    </a>
+
+</div>
+
+{% endblock %}

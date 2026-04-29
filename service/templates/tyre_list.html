@@ -1,126 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <title>Manager Services Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-<body class="bg-light">
-
-<div class="container mt-5">
-
-    <!-- HEADER -->
-    <div class="d-flex justify-content-between mb-4">
+  <body class="bg-light">
+    <div class="container mt-5">
+      <!-- HEADER -->
+      <div class="d-flex justify-content-between mb-4">
         <h2>Manager Services Dashboard</h2>
+        <div></div>
 
         <div>
-            <a href="{% url 'service:add_tyre' %}" class="btn btn-success">+ Tyre Service</a>
-            <a href="{% url 'service:add_battery' %}" class="btn btn-warning">+ Battery Service</a>
-            <a href="{% url 'service:serviceprice_list' %}" class="btn btn-primary">Manage Prices</a>
+          <a href="{% url 'service:add_tyre' %}" class="btn btn-success"
+            >+ Tyre Service</a
+          >
+          <a href="{% url 'service:add_battery' %}" class="btn btn-warning"
+            >+ Battery Service</a
+          >
+          <a
+            href="{% url 'service:serviceprice_list' %}"
+            class="btn btn-primary"
+            >Manage Prices</a
+          >
         </div>
-    </div>
+      </div>
+      <div>
+        <form method="GET" class="mb-3">
+    <input type="text" name="q" placeholder="Search by plate" class="form-control">
+</form>
+      </div>
 
-    <!-- ================= TYRE SERVICES ================= -->
-    <div class="card shadow mb-5">
+      <div class="card shadow mb-5">
         <div class="card-header bg-dark text-white">
-            <h5>Tyre Services (Puncture, Valve, Pressure)</h5>
+          <h5>Tyre Services (Puncture, Valve, Pressure)</h5>
         </div>
 
         <div class="card-body">
-            <table class="table table-bordered table-striped">
-                <thead class="table-secondary">
-                    <tr>
-                        <th>Vehicle Plate</th>
-                        <th>Service</th>
-                        <th>Vehicle Size</th>
-                        <th>Model</th>
-                        <th>Price (UGX)</th>
-                        <th>Receipt</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+          <table class="table table-bordered table-striped">
+            <thead class="table-secondary">
+              <tr>
+                <th>Vehicle Plate</th>
+                <th>Service</th>
+                <th>Vehicle Size</th>
+                <th>Model</th>
+                <th>Price (UGX)</th>
+                <th>Receipt</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
 
-                <tbody>
-                    {% for tyre in tyres %}
-                    <tr>
-                        <td>{{ tyre.vehicle_plate }}</td>
-                        <td>{{ tyre.service.get_name_display }}</td>
-                        <td>{{ tyre.service.vehicle_size }}</td>
-                        <td>{{ tyre.service.model }}</td>
-                        <td><strong>{{ tyre.service.price }}</strong></td>
-                        <td>{{ tyre.receipt_number }}</td>
-                        <td>{{ tyre.date|date:"Y-m-d H:i" }}</td>
+            <tbody>
+              {% for tyre in tyres %}
+              <tr>
+                <td>{{ tyre.vehicle_plate }}</td>
+                <td>{{ tyre.service.get_name_display }}</td>
+                <td>{{ tyre.service.vehicle_size }}</td>
+                <td>{{ tyre.service.model }}</td>
+                <td><strong>{{ tyre.service.price }}</strong></td>
+                <td>{{ tyre.receipt_number }}</td>
+                <td>{{ tyre.date|date:"Y-m-d H:i" }}</td>
+                <div>
+                  <form method="POST" action="{% url 'service:delete_tyre' tyre.id %} ">
+                    {% csrf_token %}
+                   <button type="submit" class="btn btn-danger btn-sm">
+                    Delete
+                    </button>
+                   </form>
+                </div>
+                <td>
+                  <a
+                  
+                    href="{% url 'service:tyre_receipt' tyre.id %}"
+                    class="btn btn-sm btn-success"
+                  >
+                    Receipt
+                  </a>
+                </td>
+              </tr>
 
-                        <td>
-                            <a href="{% url 'service:delete_tyre' tyre.id %}" 
-                               class="btn btn-danger btn-sm">
-                                Delete
-                            </a>
-                        </td>
-                    </tr>
-
-                    {% empty %}
-                    <tr>
-                        <td colspan="8" class="text-center text-muted">
-                            No tyre services recorded
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+              {% empty %}
+              <tr>
+                <td colspan="8" class="text-center text-muted">
+                  No tyre services recorded
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
-    </div>
+      </div>
 
-    <!-- ================= BATTERY SERVICES ================= -->
-    <div class="card shadow">
+      <!-- ================= BATTERY SERVICES ================= -->
+      <div class="card shadow">
         <div class="card-header bg-warning text-dark">
-            <h5>Battery Services (Hire & Sale)</h5>
+          <h5>Battery Services (Hire & Sale)</h5>
         </div>
 
         <div class="card-body">
-            <table class="table table-bordered table-striped">
-                <thead class="table-secondary">
-                    <tr>
-                        <th>Customer Name</th>
-                        <th>Type</th>
-                        <th>Price (UGX)</th>
-                        <th>Receipt</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+          <table class="table table-bordered table-striped">
+            <thead class="table-secondary">
+              <tr>
+                <th>Customer Name</th>
+                <th>Type</th>
+                <th>Price (UGX)</th>
+                <th>Receipt</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
 
-                <tbody>
-                    {% for battery in batteries %}
-                    <tr>
-                        <td>{{ battery.customer_name }}</td>
-                        <td>{{ battery.get_battery_type_display }}</td>
-                        <td><strong>{{ battery.price }}</strong></td>
-                        <td>{{ battery.receipt_number }}</td>
-                        <td>{{ battery.date|date:"Y-m-d H:i" }}</td>
+            <tbody>
+              {% for battery in batteries %}
+              <tr>
+                <td>{{ battery.customer_name }}</td>
+                <td>{{ battery.get_battery_type_display }}</td>
+                <td><strong>{{ battery.price }}</strong></td>
+                <td>{{ battery.receipt_number }}</td>
+                <td>{{ battery.date|date:"Y-m-d H:i" }}</td>
 
-                        <td>
-                            <a href="{% url 'service:delete_battery' battery.id %}" 
-                               class="btn btn-danger btn-sm">
-                                Delete
-                            </a>
-                        </td>
-                    </tr>
+                 <form method="POST" action="{% url 'service:delete_tyre' tyre.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm">
+                Delete
+            </button>
+        </form>
+    </td>
 
-                    {% empty %}
-                    <tr>
-                        <td colspan="6" class="text-center text-muted">
-                            No battery services recorded
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <td>
+              </tr>
+
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center text-muted">
+                  No battery services recorded
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-
-</div>
-
-</body>
+  </body>
 </html>
