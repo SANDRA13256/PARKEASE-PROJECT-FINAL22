@@ -31,9 +31,9 @@ def add_category(request):
     return render(request, 'category_form.html', {'form': form})
 
 
-# ---------------------------
+
 # Vehicle Registration Views
-# ---------------------------
+
 
 def vehicle_list(request):
     vehicles = VehicleRegistration.objects.all()

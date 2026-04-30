@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.db import models
 
+
 class ServicePrice(models.Model):
 
     CATEGORY_CHOICES = [
@@ -50,14 +51,9 @@ class TyreService(models.Model):
 
 
 class BatteryService(models.Model):
-
     customer_name = models.CharField(max_length=100)
-
-    
     service = models.ForeignKey(ServicePrice, on_delete=models.CASCADE)
-
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-
     receipt_number = models.CharField(max_length=20, unique=True, editable=False)
     date = models.DateTimeField(auto_now_add=True)
 
@@ -65,10 +61,25 @@ class BatteryService(models.Model):
         if not self.receipt_number:
             self.receipt_number = f"BAT-{uuid.uuid4().hex[:6].upper()}"
 
-        # Automated prices from service
         if self.service:
             self.price = self.service.price
 
         super().save(*args, **kwargs)
-        def __str__(self):
-          return f"{self.get_name_display()} - UGX {self.price}"
+
+    def __str__(self):
+        return f"{self.customer_name} - {self.service.get_name_display()}"
+def create_default_services():
+    services = [
+        ("pressure", "tyre", 2000),
+        ("puncture", "tyre", 5000),
+        ("valve", "tyre", 3000),
+        ("battery_hire", "battery", 20000),
+        ("battery_sale", "battery", 150000),
+    ]
+
+    for name, category, price in services:
+        ServicePrice.objects.get_or_create(
+            name=name,
+            category=category,
+            defaults={"price": price}
+        )

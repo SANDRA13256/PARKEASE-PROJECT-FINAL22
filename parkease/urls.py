@@ -23,11 +23,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # HOME (DEFAULT PAGE)
     path('', account_views.login_staff, name='home'),
+    
     # ACCOUNTS (LOGIN, REGISTER, DASHBOARD)
     path('accounts/', include('accounts.urls')),
     # PARKING (VEHICLES)
     path('parking/', include('parking.urls')),
     # SERVICES (TYRES, BATTERIES, PRICES)
     path('service/', include('service.urls')),
+    path('reports/', include('report.urls')),
+   
     
 ]

@@ -1,70 +1,117 @@
 {% extends 'base.html' %}
-
 {% block content %}
+
+<div class="container mt-4">
+
 <h2 class="mb-4">Manager Dashboard</h2>
 
-<div class="row g-4">
-    <div class="row mb-4">
+<!-- FILTER -->
+<form method="GET" class="row mb-4">
+    <div class="col-md-4">
+        <input type="date" name="start_date" class="form-control">
+    </div>
+    <div class="col-md-4">
+        <input type="date" name="end_date" class="form-control">
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-dark w-100">Filter</button>
+    </div>
+</form>
 
-    <!-- TYRE TODAY -->
+<!-- STATS -->
+<div class="row mb-4">
+
     <div class="col-md-4">
         <div class="card shadow text-center p-3">
-            <h6>Tyre Today</h6>
-            <h3>UGX {{ tyre_total|default:"0" }}</h3>
+            <h6>Tyre Revenue</h6>
+            <h3>UGX {{ tyre_total }}</h3>
+            <p>{{ tyre_count }} services</p>
         </div>
     </div>
 
-    <!-- BATTERY TODAY -->
     <div class="col-md-4">
         <div class="card shadow text-center p-3">
-            <h6>Battery Today</h6>
-            <h3>UGX {{ battery_total|default:"0" }}</h3>
+            <h6>Battery Revenue</h6>
+            <h3>UGX {{ battery_total }}</h3>
+            <p>{{ battery_count }} services</p>
         </div>
     </div>
 
-    
-
-    <!-- Tyre -->
     <div class="col-md-4">
-        <div class="card shadow border-warning">
-            <div class="card-body text-center">
-                <h5>Tyre Services</h5>
-                <p>{{ tyre_count }} services</p>
-                <h6>UGX {{ tyre_total }}</h6>
-                <a href="{% url 'service:tyre_list' %}" class="btn btn-warning">Manage</a>
-            </div>
-        </div>
-    </div>
-
-    
-    <div class="col-md-4">
-        <div class="card shadow border-primary">
-            <div class="card-body text-center">
-                <h5>Battery Services</h5>
-                <p>{{ battery_count }} services</p>
-                <h6>UGX {{ battery_total }}</h6>
-                <a href="{% url 'service:battery_list' %}" class="btn btn-primary">Manage</a>
-            </div>
+        <div class="card shadow text-center p-3 bg-dark text-white">
+            <h6>Total Revenue</h6>
+            <h3>UGX {{ total_revenue }}</h3>
         </div>
     </div>
 
 </div>
 
-<hr class="my-4">
-
-<div class="row g-4">
-
+<!-- ACTION BUTTONS -->
+<div class="row mb-4">
     <div class="col-md-6">
         <a href="{% url 'service:add_tyre' %}" class="btn btn-warning w-100">
-            ➕ Record Tyre Service
+            ➕ Add Tyre Service
         </a>
     </div>
 
     <div class="col-md-6">
         <a href="{% url 'service:add_battery' %}" class="btn btn-primary w-100">
-            ➕ Record Battery Service
+            ➕ Add Battery Service
         </a>
     </div>
+</div>
+
+<hr>
+
+<!-- TYRE TABLE -->
+<h4>Tyre Services</h4>
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Plate</th>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in tyres %}
+        <tr>
+            <td>{{ t.vehicle_plate }}</td>
+            <td>{{ t.service.get_name_display }}</td>
+            <td>UGX {{ t.price }}</td>
+            <td>{{ t.date }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No tyre records</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- BATTERY TABLE -->
+<h4 class="mt-4">Battery Services</h4>
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in batteries %}
+        <tr>
+            <td>{{ b.customer_name }}</td>
+            <td>{{ b.service.get_name_display }}</td>
+            <td>UGX {{ b.price }}</td>
+            <td>{{ b.date }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No battery records</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 </div>
 

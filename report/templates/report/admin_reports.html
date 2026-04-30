@@ -1,47 +1,19 @@
 {% extends 'base.html' %}
+
 {% block content %}
+{% load humanize %}
 
 <div class="container mt-4">
 
-<!-- HEADER -->
- <div class="d-flex justify-content-between mb-4">
+<h2 class="mb-4">📊 DAILY REPORTS</h2>
 
-    <h2>ADMIN CONTROL PANEL</h2>
-
-    <div>
-        <a href="{% url 'accounts:user_list' %}" class="btn btn-dark">
-            Manage Users
-        </a>
-
-
-        <a href="{% url 'report:admin_reports' %}" class="btn btn-primary">
-    View Reports
-</a>
-<a href="{% url 'accounts:add_user' %}" class="btn btn-success">
-    ➕ Add User
-</a>
-    </div>
-
-</div>
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h3>ParkEase</h3>
-        <small class="text-muted">DAILY REPORTS</small>
-    </div>
-
-    <div>
-        <a href="#" class="btn btn-dark">Download PDF</a>
-        <a href="#" class="btn btn-success">Export CSV</a>
-    </div>
-</div>
-
-<!-- DATE SELECT -->
+<!-- DATE FILTER -->
 <form method="GET" class="row mb-4">
     <div class="col-md-4">
         <input type="date" name="date" value="{{ selected_date }}" class="form-control">
     </div>
     <div class="col-md-4">
-        <button class="btn btn-primary">Filter</button>
+        <button class="btn btn-dark w-100">Filter</button>
     </div>
 </form>
 
@@ -49,23 +21,23 @@
 <div class="row mb-4">
 
     <div class="col-md-4">
-        <div class="card shadow text-center p-3">
+        <div class="card text-center shadow p-3">
             <h6>Parking Revenue</h6>
             <h3>UGX {{ parking_total }}</h3>
         </div>
     </div>
 
     <div class="col-md-4">
-        <div class="card shadow text-center p-3">
-            <h6>Tyre Clinic</h6>
+        <div class="card text-center shadow p-3">
+            <h6>Tyre Revenue</h6>
             <h3>UGX {{ tyre_total }}</h3>
             <small>{{ tyre_change }}% change</small>
         </div>
     </div>
 
     <div class="col-md-4">
-        <div class="card shadow text-center p-3">
-            <h6>Battery Hire</h6>
+        <div class="card text-center shadow p-3">
+            <h6>Battery Revenue</h6>
             <h3>UGX {{ battery_total }}</h3>
             <small>{{ battery_change }}% change</small>
         </div>
@@ -79,13 +51,14 @@
 </form>
 
 <!-- TABLE -->
+<div class="table-responsive">
 <table class="table table-bordered">
     <thead class="table-dark">
         <tr>
             <th>Receipt</th>
             <th>Plate</th>
-            <th>In-Time</th>
-            <th>Out-Time</th>
+            <th>In Time</th>
+            <th>Out Time</th>
             <th>Duration</th>
             <th>Fee</th>
         </tr>
@@ -98,9 +71,7 @@
             <td>{{ v.number_plate }}</td>
             <td>{{ v.arrival_time }}</td>
             <td>{{ v.departure_time }}</td>
-            <td>
-                {{ v.departure_time|timesince:v.arrival_time }}
-            </td>
+            <td>{{ v.departure_time|timesince:v.arrival_time }}</td>
             <td>
                 {% if v.rate == 'day' %}
                     {{ v.type.day_rate }}
@@ -113,19 +84,20 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="6">No records</td>
+            <td colspan="5">No records</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 <!-- PAGINATION -->
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-center">
     {% if vehicles.has_previous %}
         <a href="?page={{ vehicles.previous_page_number }}" class="btn btn-outline-dark">Previous</a>
     {% endif %}
 
-    <span>Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}</span>
+    <span class="mx-3">Page {{ vehicles.number }}</span>
 
     {% if vehicles.has_next %}
         <a href="?page={{ vehicles.next_page_number }}" class="btn btn-outline-dark">Next</a>
@@ -134,15 +106,7 @@
 
 <!-- TOTAL -->
 <div class="mt-4 text-center">
-    <h3 class="bg-dark text-white p-3">
-        DAILY TOTAL: UGX {{ grand_total }}
-    </h3>
-</div>
-
-<!-- FOOTER -->
-<div class="text-center mt-4 text-muted">
-    <strong>ADMIN CONTROL PANEL</strong><br>
-    © ParkEase System
+    <h3>Total Revenue: UGX {{ grand_total }}</h3>
 </div>
 
 </div>

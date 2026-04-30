@@ -32,11 +32,7 @@
         <td>UGX {{ battery.price }}</td>
 
         <td>
-          <form
-            method="POST"
-            action="{% url 'service:delete_battery' battery.id %}"
-            style="display: inline"
-          >
+          <form method="POST" action="{% url 'service:delete_battery' battery.id %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
           </form>
