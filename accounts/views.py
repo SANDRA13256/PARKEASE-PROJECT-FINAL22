@@ -236,7 +236,7 @@ def add_user(request):
     if form.is_valid():
         user = form.save(commit=False)
 
-        # ✅ HASH PASSWORD HERE
+        # the hashed password is here
         user.set_password(form.cleaned_data['password'])
 
         user.save()
