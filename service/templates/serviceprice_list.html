@@ -19,16 +19,18 @@
                 <th>Model</th>
                 <th>Price</th>
                 <th>Actions</th>
+                <th>Category</th>
             </tr>
         </thead>
 
         <tbody>
             {% for p in prices %}
             <tr>
-                <td>{{ p.name }}</td>
+                <td>{{ p.get_name_display }}</td>
                 <td>{{ p.vehicle_size }}</td>
                 <td>{{ p.model }}</td>
                 <td>UGX {{ p.price }}</td>
+                <td>{{ p.category|title }}</td>
                 <td>
                     <a href="{% url 'service:update_serviceprice' p.id %}" class="btn btn-sm btn-warning">
                         Edit

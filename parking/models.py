@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.utils import timezone
+
 # Create your models here.
 
 class VehicleCategory(models.Model):
@@ -24,12 +25,11 @@ class VehicleRegistration(models.Model):
     color=models.CharField(max_length=25, blank = True, null=True)
     phone_number=models.CharField(max_length=12, blank = False, null=False )
     nin=models.CharField(max_length=14, blank = False, null=False)
-    arrival_time=models.DateTimeField(auto_now=True)
+    arrival_time = models.DateTimeField(auto_now_add=True)
     receipt_number =models.CharField(max_length=20, unique=True, editable=False)
     rate = models.CharField(max_length=20, choices=RATE_TYPES, blank = True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank = False, null=False)
-    departure_time = models.DateTimeField(blank=True, null = True, default= timezone.now)
-    
+    departure_time = models.DateTimeField(blank=True,null=True)    
 
     def save(self, *args, **kwargs):
      if not self.receipt_number:
@@ -38,5 +38,23 @@ class VehicleRegistration(models.Model):
 
     def __str__(self):
      return f'{self.number_plate} ({self.receipt_number})'
+
+    
+class VehicleSignOut(models.Model):
+        GENDER_CHOICES = [
+        ('Male', 'Male'),
+        ('Female', 'Female')]
+        vehicle = models.ForeignKey(VehicleRegistration,on_delete=models.CASCADE,related_name='signouts')
+
+        receiver_name = models.CharField(max_length=100)
+        receiver_phone = models.CharField(max_length=12)
+        receiver_gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+        receiver_nin = models.CharField(max_length=14)
+
+        exit_date = models.DateField(auto_now_add=True)
+        exit_time = models.TimeField(auto_now_add=True)
+
+        def __str__(self):
+         return f"{self.receiver_name} - {self.vehicle.number_plate}"
 
 

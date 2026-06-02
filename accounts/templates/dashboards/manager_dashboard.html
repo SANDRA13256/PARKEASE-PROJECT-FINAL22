@@ -14,7 +14,7 @@
         <input type="date" name="end_date" class="form-control">
     </div>
     <div class="col-md-4">
-        <button class="btn btn-dark w-100">Filter</button>
+        <button class="btn btn-light w-100">Filter</button>
     </div>
 </form>
 
@@ -38,7 +38,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="card shadow text-center p-3 bg-dark text-white">
+        <div class="card shadow text-center p-3 bg-light text-black">
             <h6>Total Revenue</h6>
             <h3>UGX {{ total_revenue }}</h3>
         </div>
@@ -63,55 +63,6 @@
 
 <hr>
 
-<!-- TYRE TABLE -->
-<h4>Tyre Services</h4>
-<table class="table table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>Plate</th>
-            <th>Service</th>
-            <th>Price</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for t in tyres %}
-        <tr>
-            <td>{{ t.vehicle_plate }}</td>
-            <td>{{ t.service.get_name_display }}</td>
-            <td>UGX {{ t.price }}</td>
-            <td>{{ t.date }}</td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="4">No tyre records</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<!-- BATTERY TABLE -->
-<h4 class="mt-4">Battery Services</h4>
-<table class="table table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>Customer</th>
-            <th>Service</th>
-            <th>Price</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for b in batteries %}
-        <tr>
-            <td>{{ b.customer_name }}</td>
-            <td>{{ b.service.get_name_display }}</td>
-            <td>UGX {{ b.price }}</td>
-            <td>{{ b.date }}</td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="4">No battery records</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
 
 </div>
 

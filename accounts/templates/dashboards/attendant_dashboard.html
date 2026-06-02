@@ -3,6 +3,8 @@
 {% block content %}
 <h2 class="mb-4">Attendant Dashboard</h2>
 
+
+
 <div class="row g-4">
 
     <div class="col-md-3">
@@ -42,5 +44,68 @@
     </div>
 
 </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Number Plate</th>
+            <th>Driver</th>
+            <th>Status</th>
+            <th>Arrival</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vehicle in today_vehicles %}
+        <tr>
+            <td>{{ vehicle.number_plate }}</td>
+            <td>{{ vehicle.driver_name }}</td>
+            <td>{{ vehicle.status }}</td>
+            <td>{{ vehicle.arrival_time }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h2 class="mb-4">Attendant Dashboard</h2>
+
+<!-- Statistics Cards -->
+<div class="row g-4 mb-4">
+
+    <!-- Total Vehicles -->
+    <div class="col-md-4">
+        <div class="card shadow border-primary">
+            <div class="card-body text-center">
+                <h6>Total Vehicles Today</h6>
+                <h2>{{ total_vehicles }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parked -->
+    <div class="col-md-4">
+        <div class="card shadow border-success">
+            <div class="card-body text-center">
+                <h6>Vehicles Parked</h6>
+                <h2>{{ parked_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signed Out -->
+    <div class="col-md-4">
+        <div class="card shadow border-danger">
+            <div class="card-body text-center">
+                <h6>Vehicles Signed Out</h6>
+                <h2>{{ signedout_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Your existing action cards here -->
+<div class="row g-4">
+    
+</div>
+
+
 
 {% endblock %}

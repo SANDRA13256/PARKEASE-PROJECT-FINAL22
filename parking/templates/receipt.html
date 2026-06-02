@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card">
+        <div class="card-body">
+
+            <h2 class="text-center">
+                VEHICLE EXIT RECEIPT
+            </h2>
+
+            <hr>
+
+            <p><strong>Receipt Number:</strong>
+                {{ vehicle.receipt_number }}
+            </p>
+
+            <p><strong>Number Plate:</strong>
+                {{ vehicle.number_plate }}
+            </p>
+
+            <p><strong>Driver Name:</strong>
+                {{ vehicle.driver_name }}
+            </p>
+
+            <hr>
+
+            <p><strong>Receiver Name:</strong>
+                {{ signout.receiver_name }}
+            </p>
+
+            <p><strong>Phone Number:</strong>
+                {{ signout.receiver_phone }}
+            </p>
+
+            <p><strong>Gender:</strong>
+                {{ signout.receiver_gender }}
+            </p>
+
+            <p><strong>NIN:</strong>
+                {{ signout.receiver_nin }}
+            </p>
+
+            <hr>
+
+            <p><strong>Date:</strong>
+                {{ signout.exit_date }}
+            </p>
+
+            <p><strong>Time:</strong>
+                {{ signout.exit_time }}
+            </p>
+
+            <button onclick="window.print()"
+                    class="btn btn-success">
+                Print Receipt
+            </button>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

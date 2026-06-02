@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3>Vehicle Sign Out</h3>
+
+    <div class="card">
+        <div class="card-body">
+
+            <p><strong>Vehicle:</strong> {{ vehicle.number_plate }}</p>
+            <p><strong>Driver:</strong> {{ vehicle.driver_name }}</p>
+            <p><strong>Receipt:</strong> {{ vehicle.receipt_number }}</p>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit"
+                        class="btn btn-danger">
+                    Complete Sign Out
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

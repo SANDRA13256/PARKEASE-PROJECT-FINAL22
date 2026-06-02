@@ -28,30 +28,30 @@
         <td>UGX {{ battery.price }}</td>
         <td>{{ battery.receipt_number }}</td>
         <td>{{ battery.date }}</td>
+        <td>
+          <tbody>
+    {% for battery in batteries %}
+    <tr>
+        <td>{{ battery.customer_name }}</td>
         <td>{{ battery.service.get_name_display }}</td>
         <td>UGX {{ battery.price }}</td>
+        <td>{{ battery.receipt_number }}</td>
+        <td>{{ battery.date|date:"Y-m-d H:i" }}</td>
+        <form method="POST"
+      action="{% url 'service:delete_battery' battery.id %}"
+      style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger btn-sm">
+        Delete
+    </button>
+</form>
 
-        <td>
-          <form method="POST" action="{% url 'service:delete_battery' battery.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-          </form>
-
-          <a
-            href="{% url 'service:battery_receipt' battery.id %}"
-            class="btn btn-success btn-sm"
-          >
-            Receipt
-          </a>
+    {% empty %}
+    <tr>
+        <td colspan="6" class="text-center">
+            No records found
         </td>
-      </tr>
-      {% empty %}
-      <tr>
-        <td colspan="6">No records</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-{% endblock %}
+    </tr>
+    {% endfor %}
+</tbody>
+    

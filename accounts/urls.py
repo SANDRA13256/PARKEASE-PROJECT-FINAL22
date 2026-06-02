@@ -18,4 +18,5 @@ urlpatterns = [
     path('attendant-dashboard/', views.attendant_dashboard, name='attendant_dashboard'),
     
     
+    
 ]

@@ -20,6 +20,7 @@ urlpatterns = [
     path('batteries/add/', views.add_battery, name='add_battery'),
     path('batteries/delete/<int:pk>/', views.delete_battery, name='delete_battery'),
     path('batteries/receipt/<int:pk>/', views.battery_receipt, name='battery_receipt'),
+
     
     
 ]

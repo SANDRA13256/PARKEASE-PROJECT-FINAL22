@@ -3,7 +3,7 @@
 
 <div class="container mt-4">
 
-<!-- HEADER -->
+<!-- this is the header section -->
  <div class="d-flex justify-content-between mb-4">
 
     <h2>ADMIN CONTROL PANEL</h2>
@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<!-- DATE SELECT -->
+<!-- Date selector -->
 <form method="GET" class="row mb-4">
     <div class="col-md-4">
         <input type="date" name="date" value="{{ selected_date }}" class="form-control">
@@ -45,7 +45,7 @@
     </div>
 </form>
 
-<!-- REVENUE CARDS -->
+<!-- Revenue cards -->
 <div class="row mb-4">
 
     <div class="col-md-4">
@@ -73,12 +73,12 @@
 
 </div>
 
-<!-- SEARCH -->
+<!-- Search -->
 <form method="GET" class="mb-3">
     <input type="text" name="q" placeholder="Search plate or receipt" class="form-control">
 </form>
 
-<!-- TABLE -->
+<!-- Table -->
 <table class="table table-bordered">
     <thead class="table-dark">
         <tr>
@@ -119,7 +119,7 @@
     </tbody>
 </table>
 
-<!-- PAGINATION -->
+<!-- Pagination -->
 <div class="d-flex justify-content-between">
     {% if vehicles.has_previous %}
         <a href="?page={{ vehicles.previous_page_number }}" class="btn btn-outline-dark">Previous</a>
@@ -132,14 +132,14 @@
     {% endif %}
 </div>
 
-<!-- TOTAL -->
+<!-- Total -->
 <div class="mt-4 text-center">
     <h3 class="bg-dark text-white p-3">
         DAILY TOTAL: UGX {{ grand_total }}
     </h3>
 </div>
 
-<!-- FOOTER -->
+<!-- Footer -->
 <div class="text-center mt-4 text-muted">
     <strong>ADMIN CONTROL PANEL</strong><br>
     © ParkEase System

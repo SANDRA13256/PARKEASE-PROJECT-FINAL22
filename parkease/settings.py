@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'crispy_bootstrap5',
+
     
 ]
 
@@ -125,6 +126,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 CRISPY_ALLOWED_TEMPLATES_PACKS = 'bootstrap',
-CRISPY_TEMPLATE_PACK = 'boostrap',
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 AUTH_USER_MODEL = 'accounts.Staff'
 LOGIN_REDIRECT_URL='login_sucess'

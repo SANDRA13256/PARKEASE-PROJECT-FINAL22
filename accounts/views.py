@@ -43,24 +43,8 @@ def login_staff(request):
     return render(request, 'login.html', {'form': form})
 
 
-# Dashboard
 
-def dashboard(request):
-    if not request.user.is_authenticated:
-        return redirect('accounts:login')
 
-    user = request.user
-
-    if user.role == 'ADMIN':
-        return render(request, 'dashboards/admin_dashboard.html')
-
-    elif user.role == 'MANAGER':
-        return render(request, 'dashboards/manager_dashboard.html')
-
-    elif user.role == 'ATTENDANT':
-        return render(request, 'dashboards/attendant_dashboard.html')
-
-    return redirect('accounts:login')
 
 
 # Logout
@@ -69,6 +53,7 @@ def logout_staff(request):
     logout(request)
     return redirect('accounts:login')
 
+# Dashboard
 def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')
@@ -185,16 +170,41 @@ def manager_dashboard(request):
 
     return render(request, 'dashboards/manager_dashboard.html', context)
 
+from django.utils import timezone
 
 @login_required
 def attendant_dashboard(request):
-    if request.user.role != 'ATTENDANT':
-        return redirect('accounts:login')
-    return render(request, 'dashboards/attendant_dashboard.html')
+    today = timezone.now().date()
 
-User = get_user_model()
+    # All vehicles that arrived today
+    total_vehicles = VehicleRegistration.objects.filter(
+        arrival_time__date=today
+    ).count()
 
+    # Vehicles that arrived today and are still parked
+    parked_count = VehicleRegistration.objects.filter(
+        arrival_time__date=today,
+        status='parked'
+    ).count()
 
+    # Vehicles signed out today
+    signedout_count = VehicleRegistration.objects.filter(
+        departure_time__date=today,
+        status='signed_out'
+    ).count()
+
+    context = {
+        'total_vehicles': total_vehicles,
+        'parked_count': parked_count,
+        'signedout_count': signedout_count,
+    }
+
+    return render(
+        request,
+        'dashboards/attendant_dashboard.html',
+        context
+    )
+    
 @login_required
 def user_list(request):
     if request.user.role != 'ADMIN':

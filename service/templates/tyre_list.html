@@ -65,23 +65,19 @@
                 <td><strong>{{ tyre.service.price }}</strong></td>
                 <td>{{ tyre.receipt_number }}</td>
                 <td>{{ tyre.date|date:"Y-m-d H:i" }}</td>
-                <div>
-                  <form method="POST" action="{% url 'service:delete_tyre' tyre.id %} ">
-                    {% csrf_token %}
-                   <button type="submit" class="btn btn-danger btn-sm">
-                    Delete
-                    </button>
-                   </form>
-                </div>
-                <td>
-                  <a
-                  
-                    href="{% url 'service:tyre_receipt' tyre.id %}"
-                    class="btn btn-sm btn-success"
-                  >
-                    Receipt
-                  </a>
-                </td>
+         <td>
+    <form method="POST" action="{% url 'service:delete_tyre' tyre.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm">
+            Delete
+        </button>
+    </form>
+
+    <a href="{% url 'service:tyre_receipt' tyre.id %}"
+       class="btn btn-success btn-sm">
+        Receipt
+    </a>
+</td>
               </tr>
 
               {% empty %}
@@ -96,55 +92,7 @@
         </div>
       </div>
 
-      <!-- ================= BATTERY SERVICES ================= -->
-      <div class="card shadow">
-        <div class="card-header bg-warning text-dark">
-          <h5>Battery Services (Hire & Sale)</h5>
-        </div>
 
-        <div class="card-body">
-          <table class="table table-bordered table-striped">
-            <thead class="table-secondary">
-              <tr>
-                <th>Customer Name</th>
-                <th>Type</th>
-                <th>Price (UGX)</th>
-                <th>Receipt</th>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {% for battery in batteries %}
-              <tr>
-                <td>{{ battery.customer_name }}</td>
-                <td>{{ battery.get_battery_type_display }}</td>
-                <td><strong>{{ battery.price }}</strong></td>
-                <td>{{ battery.receipt_number }}</td>
-                <td>{{ battery.date|date:"Y-m-d H:i" }}</td>
-
-                 <form method="POST" action="{% url 'service:delete_tyre' tyre.id %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">
-                Delete
-            </button>
-        </form>
-    </td>
-
-    <td>
-              </tr>
-
-              {% empty %}
-              <tr>
-                <td colspan="6" class="text-center text-muted">
-                  No battery services recorded
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   </body>

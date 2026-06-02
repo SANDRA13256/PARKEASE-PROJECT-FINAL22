@@ -72,7 +72,8 @@ def delete_tyre(request, pk):
 
     if request.method == 'POST':
         tyre.delete()
-        return redirect('tyre_list')
+        return redirect('service:tyre_list')
+    
 
     return render(request, 'confirm_delete.html', {'object': tyre})
 

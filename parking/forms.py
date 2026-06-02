@@ -1,7 +1,17 @@
 from django import forms
 from parking.models import VehicleCategory, VehicleRegistration
 import re
+from .models import VehicleSignOut
 
+class VehicleSignOutForm(forms.ModelForm):
+    class Meta:
+        model = VehicleSignOut
+        fields = [
+            'receiver_name',
+            'receiver_phone',
+            'receiver_gender',
+            'receiver_nin'
+        ]
 
 class VehicleCategoryForm(forms.ModelForm):
     class Meta:
@@ -15,7 +25,7 @@ class VehicleRegistrationForm(forms.ModelForm):
         fields = [
             'type', 'driver_name', 'number_plate', 'model',
             'color', 'phone_number', 'nin',
-            'rate', 'status'
+            'rate'
         ]
 
     #  Driver Name Validation
@@ -68,8 +78,8 @@ class VehicleRegistrationForm(forms.ModelForm):
     def clean_nin(self):
         nin = self.cleaned_data.get('nin')
 
-        if not re.match(r'^[A-Z]{2}\d{8}[A-Z]{3}$', nin):
-            raise forms.ValidationError("Enter a valid NIN (e.g. CM12345678ABC)")
+        if not re.match(r'^[A-Z]{2}\d{7}[A-Z]{1}\d{1}[A-Z]{3}$', nin):
+            raise forms.ValidationError("Enter a valid NIN (e.g. CM0234567K5JNL)")
 
         return nin.upper()
 
